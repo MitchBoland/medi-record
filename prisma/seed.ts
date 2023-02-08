@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { customerData } from './customerData';
+import { customerData } from "./customerData";
 
 const prisma = new PrismaClient();
 
@@ -16,6 +16,8 @@ const run = async () => {
           firstName: customer.firstName,
           lastName: customer.lastName,
           address: customer.address,
+          phoneNumber: customer.phoneNumber,
+          preferredContactMethod: customer.preferredContactMethod,
         },
       });
     })
