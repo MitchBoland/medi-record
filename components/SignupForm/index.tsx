@@ -33,7 +33,7 @@ export const SignupForm = () => {
         fontSize="1xl"
         fontWeight="500"
       >
-        Enter your details below to register with Cyndi Stock.
+        Enter your details below
       </Text>
       <form onSubmit={handleSubmit}>
         <Box paddingBottom="24px">
