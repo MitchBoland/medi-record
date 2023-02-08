@@ -19,14 +19,41 @@ model User {
   role      String
   firstName String
   lastName  String
+  store     String?
 }
 
 model Customer {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  email     String   @unique
-  firstName String
-  lastName  String
-  address   String
+  id            Int            @id @default(autoincrement())
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  email         String         @unique
+  firstName     String
+  lastName      String
+  address       String
+  prescriptions Prescription[]
+  comments      String?
+}
+
+model Prescription {
+  id               Int       @id @default(autoincrement())
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+  totalRefills     Int
+  refillsRemaining Int
+  lastRefillDate   DateTime
+  refillFrequency  Int
+  nextRefillDate   DateTime
+  Customer         Customer? @relation(fields: [customerId], references: [id])
+  customerId       Int?
+  products         Product[]
+}
+
+model Product {
+  id             Int           @id @default(autoincrement())
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  prescription   Prescription? @relation(fields: [prescriptionId], references: [id])
+  prescriptionId Int?
+  name           String
+  description    String?
 }

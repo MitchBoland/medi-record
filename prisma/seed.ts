@@ -1,13 +1,13 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { customerData } from './customerData';
+import { customerData } from "./customerData";
 
 const prisma = new PrismaClient();
 
 const run = async () => {
   // seeding the fake customer data
   await Promise.all(
-    customerData.map(async (customer) => {
+    customerData.map(async (customer, index) => {
       return prisma.customer.upsert({
         where: { email: customer.email },
         update: {},
@@ -16,6 +16,21 @@ const run = async () => {
           firstName: customer.firstName,
           lastName: customer.lastName,
           address: customer.address,
+          prescriptions: {
+            create: {
+              totalRefills: index,
+              refillsRemaining: index,
+              refillFrequency: 30,
+              lastRefillDate: new Date(),
+              nextRefillDate: new Date(),
+              products: {
+                create: {
+                  name: `celebrate ${index}`,
+                  description: `description for ${index}`,
+                }
+              }
+            },
+          },
         },
       });
     })
@@ -31,6 +46,7 @@ const run = async () => {
       role: "god",
       firstName: "Mitch",
       lastName: "CoolKid",
+      store: "Brisbane",
     },
   });
 };
