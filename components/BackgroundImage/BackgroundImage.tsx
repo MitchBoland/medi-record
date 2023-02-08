@@ -2,7 +2,7 @@ import React from "react";
 import { Image } from "@chakra-ui/react";
 
 type Props = {
-  image?: string;
+  image: string;
 };
 
 export const BackgroundImage = ({ image }: Props) => {
