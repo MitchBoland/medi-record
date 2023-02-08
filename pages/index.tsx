@@ -26,10 +26,12 @@ const Home = () => {
         >
           <Heading
             as="h1"
-            size="4xl"
+            size="2xl"
             noOfLines={2}
             textAlign="center"
             padding="24px"
+            bg="white"
+            borderRadius="20px"
           >
             Welcome to Medi Records
           </Heading>

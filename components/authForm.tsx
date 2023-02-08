@@ -1,8 +1,8 @@
 import React, { FC } from "react";
-import { Box, Flex } from "@chakra-ui/react";
-import NextImage from "next/image";
+import { Box, Flex, Image } from "@chakra-ui/react";
 import { SigninForm } from "./SigninForm";
 import { SignupForm } from "./SignupForm";
+import BackgroundImage from "./BackgroundImage/BackgroundImage";
 
 const AuthForm: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
   const isSigninForm = mode === "signin";
@@ -15,19 +15,19 @@ const AuthForm: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
       marginTop="-24px"
       marginBottom="24px"
     >
-      <NextImage src="/vercel.svg" alt="site logo" width={160} height={160} />
+      <Image src="./images/logo.svg" alt="site logo" width={160} height={160} />
     </Flex>
   );
 
   return (
     <Flex
       width="100vw"
-      // bgGradient="linear(to-l, #2998ff, #5643fa)"
       color="white"
       justifyContent="center"
       alignItems="center"
       minHeight="100vh"
     >
+      <BackgroundImage image="/images/loginBackground.jpg" />
       <Flex
         justify="center"
         align="center"
@@ -37,6 +37,7 @@ const AuthForm: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
         <Box
           padding="50px"
           bg="white"
+          zIndex="1"
           borderRadius="6px"
           width="400px"
           maxWidth="calc(100vw - 48px)"
