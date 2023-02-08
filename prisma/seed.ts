@@ -1,9 +1,26 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
+import { customerData } from './customerData';
 
 const prisma = new PrismaClient();
 
 const run = async () => {
+  // seeding the fake customer data
+  await Promise.all(
+    customerData.map(async (customer) => {
+      return prisma.customer.upsert({
+        where: { email: customer.email },
+        update: {},
+        create: {
+          email: customer.email,
+          firstName: customer.firstName,
+          lastName: customer.lastName,
+          address: customer.address,
+        },
+      });
+    })
+  );
+
   const salt = bcrypt.genSaltSync();
   await prisma.user.upsert({
     where: { email: "mitch@test.com" },
