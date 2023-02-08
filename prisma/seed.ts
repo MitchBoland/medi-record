@@ -1,6 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-import { customerData } from './customerData';
+import { customerData } from "./customerData";
 
 const prisma = new PrismaClient();
 
@@ -31,6 +31,7 @@ const run = async () => {
       role: "god",
       firstName: "Mitch",
       lastName: "CoolKid",
+      store: "Brisbane",
     },
   });
 };
