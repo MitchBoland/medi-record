@@ -20,3 +20,13 @@ model User {
   firstName String
   lastName  String
 }
+
+model Customer {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String   @unique
+  firstName String
+  lastName  String
+  address   String
+}

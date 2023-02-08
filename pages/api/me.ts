@@ -7,7 +7,6 @@ export default validateRoute(async (req, res, user) => {
   res.end();
 });
 
-
 // Demo of how to add additional data to the user
 /**
  * export default validateRoute(async (req, res, user) => {
