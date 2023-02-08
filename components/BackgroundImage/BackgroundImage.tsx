@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React from "react";
 import { Image } from "@chakra-ui/react";
 
 type Props = {
@@ -7,12 +6,10 @@ type Props = {
 };
 
 export const BackgroundImage = ({ image }: Props) => {
-  const [bgImage, setBgImage] = useState(image);
-
   return (
     <>
       <Image
-        src={bgImage}
+        src={image}
         alt="loginBackground"
         fill="true"
         objectFit="cover"
