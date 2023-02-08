@@ -7,8 +7,8 @@ const prisma = new PrismaClient();
 const run = async () => {
   // seeding the fake customer data
   await Promise.all(
-    customerData.map(async (customer) => {
-      return prisma.customer.upsert({
+    customerData.map(async (customer, index) => {
+      const customerAccount = await prisma.customer.upsert({
         where: { email: customer.email },
         update: {},
         create: {
@@ -18,8 +18,24 @@ const run = async () => {
           address: customer.address,
           phoneNumber: customer.phoneNumber,
           preferredContactMethod: customer.preferredContactMethod,
+          prescription: {
+            create: {
+              totalRefills: 5,
+              refillsRemaining: 5,
+              lastRefillDate: new Date(),
+              nextRefillDate: new Date(),
+              refillFrequency: 30,
+              product: {
+                create: {
+                  name: `Random Product ${index}`,
+                }
+              }
+            },
+          },
         },
       });
+
+      return customerAccount;
     })
   );
 
@@ -33,6 +49,7 @@ const run = async () => {
       role: "god",
       firstName: "Mitch",
       lastName: "CoolKid",
+      store: "Brisbane Store",
     },
   });
 };

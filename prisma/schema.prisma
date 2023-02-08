@@ -19,6 +19,7 @@ model User {
   role      String
   firstName String
   lastName  String
+  store     String
 }
 
 model Customer {
@@ -41,6 +42,7 @@ model Doctor {
   name        String
   phoneNumber String
   email       String   @unique
+  location    String
 }
 
 model Prescription {
@@ -49,12 +51,12 @@ model Prescription {
   updatedAt        DateTime  @updatedAt
   customer         Customer  @relation(fields: [customerId], references: [id])
   customerId       Int       @unique
-  product          Product[]
   totalRefills     Int
   refillsRemaining Int
   lastRefillDate   DateTime
   refillFrequency  Int
   nextRefillDate   DateTime
+  product          Product[]
 }
 
 model Product {
