@@ -38,7 +38,7 @@ const Sidebar = () => {
   };
 
   const openStaffList = () => {
-    router.push("/staff/");
+    router.push("/staff");
   };
 
   return (
