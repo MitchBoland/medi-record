@@ -1,7 +1,5 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState } from "react";
 import { useRouter } from "next/router";
-import { signout } from "../../../lib/mutations";
-import { useMe } from "../../../lib/hooks";
 import {
   Flex,
   Text,
@@ -19,19 +17,18 @@ import {
   FiSettings,
   FiLogOut,
 } from "react-icons/fi";
+import { signout } from "../../../lib/mutations";
+import { useMe } from "../../../lib/hooks";
 
 import NavItem from "../NavItem/NavItem";
 
-export default function Sidebar() {
+const Sidebar = () => {
   const [navSize, changeNavSize] = useState("small");
-  const [isLoading, setIsLoading] = useState(false);
   const { user } = useMe();
   const router = useRouter();
 
   const handleLogOutEvent = useCallback(async () => {
-    setIsLoading(true);
     await signout();
-    setIsLoading(false);
     router.push("/signin");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -41,7 +38,7 @@ export default function Sidebar() {
   };
 
   const openStaffList = () => {
-    router.push("/StaffList/StaffList");
+    router.push("/staff");
   };
 
   return (
@@ -49,7 +46,7 @@ export default function Sidebar() {
       background="white"
       pos="relative"
       h="100vh"
-      w={navSize == "small" ? "75px" : "200px"}
+      w={navSize === "small" ? "75px" : "200px"}
       flexDir="column"
       justifyContent="space-between"
       zIndex="999"
@@ -58,7 +55,7 @@ export default function Sidebar() {
         p="5%"
         flexDir="column"
         w="100%"
-        alignItems={navSize == "small" ? "center" : "flex-start"}
+        alignItems={navSize === "small" ? "center" : "flex-start"}
         as="nav"
       >
         <Image
@@ -85,7 +82,7 @@ export default function Sidebar() {
           _hover={{ background: "none" }}
           icon={<FiMenu />}
           onClick={() => {
-            if (navSize == "small") changeNavSize("large");
+            if (navSize === "small") changeNavSize("large");
             else changeNavSize("small");
           }}
         />
@@ -93,13 +90,13 @@ export default function Sidebar() {
           navSize={navSize}
           icon={FiHome}
           title="Dashboard"
-          clickFunction={returnHome}
+          onClick={returnHome}
         />
         <NavItem
           navSize={navSize}
           icon={FiUser}
           title="Staff"
-          clickFunction={openStaffList}
+          onClick={openStaffList}
         />
         <NavItem navSize={navSize} icon={FiUser} title="Clients" />
         <NavItem navSize={navSize} icon={FiBriefcase} title="Reports" />
@@ -109,9 +106,7 @@ export default function Sidebar() {
           navSize={navSize}
           icon={FiLogOut}
           title="Log Out"
-          clickFunction={() => {
-            handleLogOutEvent();
-          }}
+          onClick={handleLogOutEvent}
         />
       </Flex>
 
@@ -119,16 +114,16 @@ export default function Sidebar() {
         p="5%"
         flexDir="column"
         w="100%"
-        alignItems={navSize == "small" ? "center" : "flex-start"}
+        alignItems={navSize === "small" ? "center" : "flex-start"}
         mb={4}
       >
-        <Divider display={navSize == "small" ? "none" : "flex"} mb="10px" />
+        <Divider display={navSize === "small" ? "none" : "flex"} mb="10px" />
         <Avatar size="md" left="0" right="0" ml="auto" mr="auto" src="" />
         <Flex mt={4} align="center">
           <Flex
             flexDir="column"
             ml="1.8vw"
-            display={navSize == "small" ? "none" : "flex"}
+            display={navSize === "small" ? "none" : "flex"}
           >
             <Heading as="h4" size="sm">
               {user.firstName} {user.lastName}
@@ -141,4 +136,6 @@ export default function Sidebar() {
       </Flex>
     </Flex>
   );
-}
+};
+
+export default Sidebar;
