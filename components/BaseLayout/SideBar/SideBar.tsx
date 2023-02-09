@@ -36,6 +36,14 @@ export default function Sidebar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const returnHome = () => {
+    router.push("/");
+  };
+
+  const openStaffList = () => {
+    router.push("/StaffList/StaffList");
+  };
+
   return (
     <Flex
       background="white"
@@ -67,6 +75,7 @@ export default function Sidebar() {
         />
 
         <IconButton
+          aria-label={null}
           background="none"
           mt="5px"
           left="0"
@@ -80,8 +89,18 @@ export default function Sidebar() {
             else changeNavSize("small");
           }}
         />
-        <NavItem navSize={navSize} icon={FiHome} title="Dashboard" />
-        <NavItem navSize={navSize} icon={FiUser} title="Staff" />
+        <NavItem
+          navSize={navSize}
+          icon={FiHome}
+          title="Dashboard"
+          clickFunction={returnHome}
+        />
+        <NavItem
+          navSize={navSize}
+          icon={FiUser}
+          title="Staff"
+          clickFunction={openStaffList}
+        />
         <NavItem navSize={navSize} icon={FiUser} title="Clients" />
         <NavItem navSize={navSize} icon={FiBriefcase} title="Reports" />
         <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
