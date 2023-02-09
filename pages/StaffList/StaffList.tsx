@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
-import prisma from "../lib/prisma";
-import { validateToken } from "../lib/auth";
+import prisma from "../../lib/prisma";
+import { validateToken } from "../../lib/auth";
 
 import {
   Box,
@@ -13,10 +13,8 @@ import {
   Button,
 } from "@chakra-ui/react";
 
-const staffList = ({ users }) => {
+export default function StaffList({ users }) {
   const [staffList, setStaffList] = useState(null);
-
-  console.log(users);
 
   return (
     <Box
@@ -28,10 +26,10 @@ const staffList = ({ users }) => {
       padding="1.25rem"
       textAlign="center"
     >
-      testdddddddddd
+      Staff
     </Box>
   );
-};
+}
 
 export const getServerSideProps = async ({ query, req }) => {
   let user;
@@ -65,5 +63,3 @@ export const getServerSideProps = async ({ query, req }) => {
     props: { users },
   };
 };
-
-export default staffList;
