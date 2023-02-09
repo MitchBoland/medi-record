@@ -6,13 +6,13 @@ type props = {
   icon?: any;
   title?: string;
   active?: boolean;
-  onCLick?: () => void;
+  onClick?: () => void;
 };
 
-const NavItem: FC<props> = ({ navSize, icon, title, active, onCLick }) => {
+const NavItem: FC<props> = ({ navSize, icon, title, active, onClick }) => {
   return (
     <Flex
-      onClick={onCLick}
+      onClick={onClick}
       mt={30}
       flexDir="column"
       w="100%"

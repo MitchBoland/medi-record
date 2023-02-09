@@ -90,13 +90,13 @@ const Sidebar = () => {
           navSize={navSize}
           icon={FiHome}
           title="Dashboard"
-          onCLick={returnHome}
+          onClick={returnHome}
         />
         <NavItem
           navSize={navSize}
           icon={FiUser}
           title="Staff"
-          onCLick={openStaffList}
+          onClick={openStaffList}
         />
         <NavItem navSize={navSize} icon={FiUser} title="Clients" />
         <NavItem navSize={navSize} icon={FiBriefcase} title="Reports" />
@@ -106,7 +106,7 @@ const Sidebar = () => {
           navSize={navSize}
           icon={FiLogOut}
           title="Log Out"
-          onCLick={handleLogOutEvent}
+          onClick={handleLogOutEvent}
         />
       </Flex>
 
