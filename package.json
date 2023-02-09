@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "start-app": "supabase start && yarn yarn prisma db push && yarn prisma migrate dev && yarn next dev",
+    "stop-db": "supabase stop"
   },
   "dependencies": {
     "@chakra-ui/accordion": "2.1.3",
