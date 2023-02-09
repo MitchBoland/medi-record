@@ -1,21 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React from "react";
+import { Box } from "@chakra-ui/react";
 import prisma from "../../lib/prisma";
 import { validateToken } from "../../lib/auth";
 
-import {
-  Box,
-  Card,
-  CardBody,
-  Center,
-  Flex,
-  Heading,
-  Icon,
-  Button,
-} from "@chakra-ui/react";
-
-export default function StaffList({ users }) {
-  const [staffList, setStaffList] = useState(null);
-
+const StaffList = ({ users }) => {
   return (
     <Box
       backgroundColor="white"
@@ -26,12 +14,12 @@ export default function StaffList({ users }) {
       padding="1.25rem"
       textAlign="center"
     >
-      Staff
+      {users.firstName} {users.lastName}
     </Box>
   );
-}
+};
 
-export const getServerSideProps = async ({ query, req }) => {
+export const getServerSideProps = async ({ req }) => {
   let user;
 
   try {
@@ -63,3 +51,5 @@ export const getServerSideProps = async ({ query, req }) => {
     props: { users },
   };
 };
+
+export default StaffList;
