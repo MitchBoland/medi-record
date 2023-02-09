@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import { signout } from "../../../lib/mutations";
 import { useMe } from "../../../lib/hooks";
@@ -36,6 +36,10 @@ export default function Sidebar() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const openStaffList = () => {
+    router.push("/stafflist");
+  };
+
   return (
     <Flex
       background="white"
@@ -67,6 +71,7 @@ export default function Sidebar() {
         />
 
         <IconButton
+          aria-label={null}
           background="none"
           mt="5px"
           left="0"
@@ -81,7 +86,14 @@ export default function Sidebar() {
           }}
         />
         <NavItem navSize={navSize} icon={FiHome} title="Dashboard" />
-        <NavItem navSize={navSize} icon={FiUser} title="Staff" />
+        <NavItem
+          navSize={navSize}
+          icon={FiUser}
+          title="Staff"
+          clickFunction={() => {
+            router.push("/stafflist");
+          }}
+        />
         <NavItem navSize={navSize} icon={FiUser} title="Clients" />
         <NavItem navSize={navSize} icon={FiBriefcase} title="Reports" />
         <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
@@ -90,9 +102,7 @@ export default function Sidebar() {
           navSize={navSize}
           icon={FiLogOut}
           title="Log Out"
-          clickFunction={() => {
-            handleLogOutEvent();
-          }}
+          clickFunction={openStaffList}
         />
       </Flex>
 

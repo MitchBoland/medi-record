@@ -44,7 +44,7 @@ const Home = () => {
               padding="24px"
             >
               <Button
-                colorScheme="blue"
+                variant="submit"
                 isLoading={isLoading}
                 onClick={handleLogOutEvent}
               >

@@ -85,7 +85,7 @@ export const SignupForm = () => {
         <Box width="100%" paddingBottom="24px">
           <Button
             type="submit"
-            bg="#5643fa"
+            variant="submit"
             isLoading={isLoading}
             size="md"
             width="100%"
@@ -100,7 +100,6 @@ export const SignupForm = () => {
         </Box>
         <Box width="100%">
           <Button
-            color="#5643fa"
             size="md"
             width="100%"
             variant="link"

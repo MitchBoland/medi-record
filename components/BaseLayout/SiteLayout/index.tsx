@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Spinner } from "@chakra-ui/react";
+import { Box, Flex, SlideFade, Spinner } from "@chakra-ui/react";
 import { useMe } from "../../../lib/hooks";
 import SideBar from "../SideBar/SideBar";
 import BackgroundImage from "../../BackgroundImage/BackgroundImage";
@@ -15,7 +15,9 @@ export const SiteLayout = ({ children }) => {
     <Box width="100%">
       <BackgroundImage image="/images/loginBackground.jpg" />
       <Flex>
-        <SideBar />
+        <SlideFade offsetX="-50px" in>
+          <SideBar />
+        </SlideFade>
         <Flex
           flexDirection="row"
           justifyContent="center"

@@ -15,7 +15,12 @@ const AuthForm: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
       marginTop="-24px"
       marginBottom="24px"
     >
-      <Image src="./images/logo.svg" alt="site logo" width={160} height={160} />
+      <Image
+        src="./images/logo.svg"
+        alt="site logo"
+        width="80px"
+        height="80px"
+      />
     </Flex>
   );
 
@@ -41,7 +46,8 @@ const AuthForm: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
           borderRadius="6px"
           width="400px"
           maxWidth="calc(100vw - 48px)"
-          borderTop=" 8px solid #5643fa"
+          borderTop=" 8px solid"
+          borderColor="brand.800"
           boxShadow="0px 3px 9px rgba(0, 0, 0, 0.4)"
         >
           {formImage()}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, Input, Button, Text } from "@chakra-ui/react";
+import { Box, Input, Button, Text, Flex } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { signinAuth } from "../../lib/mutations";
 
@@ -48,33 +48,21 @@ export const SigninForm = () => {
             color="gray.900"
           />
         </Box>
-        <Box width="100%" paddingBottom="24px">
-          <Button
-            type="submit"
-            bg="#5643fa"
-            isLoading={isLoading}
-            size="md"
-            width="100%"
-            sx={{
-              "&:hover": {
-                bg: " #2998ff",
-              },
-            }}
-          >
+
+        <Flex
+          width="100%"
+          flexDirection="column"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Button type="submit" variant="submit" isLoading={isLoading}>
             Log in
           </Button>
-        </Box>
-        <Box width="100%">
-          <Button
-            color="#5643fa"
-            size="md"
-            width="100%"
-            variant="link"
-            onClick={handleRegisterAccount}
-          >
+
+          <Button variant="submit" onClick={handleRegisterAccount}>
             Register
           </Button>
-        </Box>
+        </Flex>
       </form>
     </Box>
   );
