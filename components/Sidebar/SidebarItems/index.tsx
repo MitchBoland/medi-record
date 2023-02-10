@@ -40,7 +40,7 @@ export const SidebarItems: FC<props> = ({ navItems, isCollapsed }) => {
               <NextLink href={route} passHref>
                 <Flex
                   alignItems="center"
-                  justifyContent={isCollapsed ? "flex-start" : "center"}
+                  justifyContent={isCollapsed ? "center" : "flex-start"}
                 >
                   <ListIcon as={icon} marginRight="0px" />
                   {!isCollapsed && <Text marginLeft="12px">{title}</Text>}
