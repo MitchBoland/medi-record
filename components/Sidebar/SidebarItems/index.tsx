@@ -65,15 +65,6 @@ export const SidebarItems: FC<props> = ({ navItems, isCollapsed }) => {
           </Button>
         )}
       </Flex>
-
-      {/* <Flex
-        justifyContent="center"
-        alignItems="center"
-        width="100%"
-        marginY="24px"
-      >
-        
-      </Flex> */}
     </Flex>
   );
 };

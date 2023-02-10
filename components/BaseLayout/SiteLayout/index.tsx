@@ -14,11 +14,8 @@ export const SiteLayout = ({ children }) => {
   }
 
   const collapseEvent = () => {
-    console.log("this was called...");
     setIsCollapsed(!isCollapsed);
   };
-
-  // We need to be able to track the state of the sidebar to make the main container content responsive
 
   return (
     <Box width="100%">
