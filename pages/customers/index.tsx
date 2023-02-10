@@ -4,7 +4,7 @@ import prisma from "../../lib/prisma";
 import { validateToken } from "../../lib/auth";
 import { PageContent } from "../../components/BaseLayout/PageContent";
 
-const StaffList = ({ users }) => {
+const CustomerList = ({ customers }) => {
   return (
     <PageContent>
       <Flex flexDirection="column" justifyContent="center" alignItems="center">
@@ -17,13 +17,14 @@ const StaffList = ({ users }) => {
           bg="white"
           borderRadius="20px"
         >
-          Staff Refords
+          customer Records
         </Heading>
+
         <Card backgroundColor="white" width="100%" padding="24px">
           <ul>
-            {users.map((user) => (
-              <li key={`${user.firstName}-${user.lastName}`}>
-                hello {user.firstName} {user.lastName}
+            {customers.map((customer) => (
+              <li key={`${customer.firstName}-${customer.lastName}`}>
+                hello {customer.firstName} {customer.lastName}
               </li>
             ))}
           </ul>
@@ -48,7 +49,7 @@ export const getServerSideProps = async ({ req }) => {
   }
 
   if (!user) {
-    // no stock name, redirect back to home route
+    // No user, so return home
     return {
       redirect: {
         permanent: false,
@@ -57,13 +58,20 @@ export const getServerSideProps = async ({ req }) => {
     };
   }
 
-  const users = await prisma.user.findMany({
-    select: { firstName: true, lastName: true, store: true, email: true },
+  const customers = await prisma.customer.findMany({
+    select: {
+      firstName: true,
+      lastName: true,
+      email: true,
+      prescriptions: true,
+      phone: true,
+      comments: true,
+    },
   });
 
   return {
-    props: { users },
+    props: { customers },
   };
 };
 
-export default StaffList;
+export default CustomerList;

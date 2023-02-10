@@ -1,6 +1,7 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
 import { customerData } from "./customerData";
+import { userData } from "./userData";
 
 const prisma = new PrismaClient();
 
@@ -16,6 +17,8 @@ const run = async () => {
           firstName: customer.firstName,
           lastName: customer.lastName,
           address: customer.address,
+          comments: customer?.comments,
+          phone: customer?.phone,
           prescriptions: {
             create: {
               totalRefills: index,
@@ -37,6 +40,25 @@ const run = async () => {
   );
 
   const salt = bcrypt.genSaltSync();
+  await Promise.all(
+    userData.map(
+      async ({ email, password, role, firstName, lastName, store }) => {
+        return prisma.user.upsert({
+          where: { email },
+          update: {},
+          create: {
+            email,
+            password: bcrypt.hashSync(password, salt),
+            role,
+            firstName,
+            lastName,
+            store,
+          },
+        });
+      }
+    )
+  );
+
   await prisma.user.upsert({
     where: { email: "mitch@test.com" },
     update: {},

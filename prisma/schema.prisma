@@ -32,6 +32,7 @@ model Customer {
   address       String
   prescriptions Prescription[]
   comments      String?
+  phone         String?
 }
 
 model Prescription {

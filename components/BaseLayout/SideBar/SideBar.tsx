@@ -35,7 +35,7 @@ const Sidebar: FC<props> = ({ trackCollapse }) => {
     {
       title: "Customers",
       icon: FiBriefcase,
-      route: "/",
+      route: "/customers",
     },
   ];
 
@@ -83,7 +83,7 @@ const Sidebar: FC<props> = ({ trackCollapse }) => {
             setIsCollapsed(!isCollapsed);
           }}
         />
-        <Flex height="100%">
+        <Flex height="100%" marginLeft="auto" marginRight="auto">
           <SidebarItems isCollapsed={isCollapsed} navItems={sideBarItems} />
         </Flex>
       </Flex>
