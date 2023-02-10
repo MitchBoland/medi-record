@@ -1,14 +1,7 @@
-interface UserDetails {
-  stockList: string[];
-  favouriteStock: string;
-}
+import { IconType } from "react-icons/lib";
 
-export type User = {
-  id: number;
-  email: string;
-  isAdmin: boolean;
-  firstName: string;
-  lastName: string;
-  playListsCount: number;
-  userDetails: UserDetails;
+export type SidebarRoutes = {
+  title: string;
+  icon: IconType;
+  route: string;
 };
