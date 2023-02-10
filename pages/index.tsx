@@ -2,6 +2,7 @@ import React, { useCallback, useState } from "react";
 import { Button, Flex, Heading, SlideFade } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import { signout } from "../lib/mutations";
+import { PageContent } from "../components/BaseLayout/PageContent";
 
 // This is the home screen body content
 const Home = () => {
@@ -17,44 +18,38 @@ const Home = () => {
   }, []);
 
   return (
-    <Flex width="100%" height="100%">
-      <Flex justifyContent="center" alignItems="center" width="100%">
-        <Flex
-          flexDirection="column"
-          justifyContent="center"
-          alignItems="center"
+    <PageContent>
+      <Flex flexDirection="column" justifyContent="center" alignItems="center">
+        <Heading
+          as="h1"
+          size="2xl"
+          noOfLines={2}
+          textAlign="center"
+          padding="24px"
+          bg="white"
+          borderRadius="20px"
         >
-          <Heading
-            as="h1"
-            size="2xl"
-            noOfLines={2}
-            textAlign="center"
+          Welcome to Medi Records
+        </Heading>
+        <SlideFade offsetY="50px" in>
+          <Flex
+            marginLeft="auto"
+            marginRight="auto"
+            justifyContent="center"
+            alignItems="center"
             padding="24px"
-            bg="white"
-            borderRadius="20px"
           >
-            Welcome to Medi Records
-          </Heading>
-          <SlideFade offsetY="50px" in>
-            <Flex
-              marginLeft="auto"
-              marginRight="auto"
-              justifyContent="center"
-              alignItems="center"
-              padding="24px"
+            <Button
+              variant="submit"
+              isLoading={isLoading}
+              onClick={handleLogOutEvent}
             >
-              <Button
-                variant="submit"
-                isLoading={isLoading}
-                onClick={handleLogOutEvent}
-              >
-                Log Out
-              </Button>
-            </Flex>
-          </SlideFade>
-        </Flex>
+              Log Out
+            </Button>
+          </Flex>
+        </SlideFade>
       </Flex>
-    </Flex>
+    </PageContent>
   );
 };
 
