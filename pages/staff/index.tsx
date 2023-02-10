@@ -5,67 +5,70 @@ import {
   Table,
   TableContainer,
   Tbody,
-  Text,
   Td,
   Th,
   Thead,
   Tr,
-  TableCaption,
+  Switch,
   Heading,
   Icon,
 } from "@chakra-ui/react";
-import prisma from "../../lib/prisma";
 import { validateToken } from "../../lib/auth";
-
-import { FaUserEdit, FaUserMinus } from "react-icons/fa";
+import { FaUserEdit } from "react-icons/fa";
+import prisma from "../../lib/prisma";
 
 const StaffList = ({ users }) => {
-  console.log(users);
   return (
     <Box
       backgroundColor="white"
+      height="max-content"
       maxWidth="max-content"
-      maxHeight="max-content"
+      maxHeight="100vh"
       boxShadow="0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);"
-      padding="1.25rem"
+      padding="24px"
       textAlign="center"
       display="block"
       margin="0 auto"
+      overflowY="scroll"
+      css={{
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+      }}
     >
       <TableContainer>
-        <Heading size="lg" margin="10px 10px 20px 10px">
+        <Heading size="md" margin="12px 12px 24px 24px">
           Staff
         </Heading>
         <Table variant="simple">
           <Thead>
             <Tr>
-              <Th></Th>
-              <Th>First Name</Th>
-              <Th>Last Name</Th>
-              <Th>Location</Th>
-              <Th>Email</Th>
+              <Th />
+              <Th textAlign="center">First Name</Th>
+              <Th textAlign="center">Last Name</Th>
+              <Th textAlign="center">Location</Th>
+              <Th textAlign="center">Email</Th>
+              <Th>Edit</Th>
+              <Th>Active</Th>
             </Tr>
           </Thead>
           <Tbody>
-            {users.map((e, i) => {
+            {users.map((user) => {
               return (
                 <Tr>
                   <Td>
                     {" "}
                     <Avatar size="xs" src="" cursor="pointer" />
                   </Td>
+                  <Td>{user.firstName}</Td>
+                  <Td>{user.lastName}</Td>
+                  <Td>{user.store}</Td>
+                  <Td>{user.email}</Td>
                   <Td>
-                    <Text>{e.firstName}</Text>
-                  </Td>
-                  <Td>{e.firstName}</Td>
-                  <Td>{e.lastName}</Td>
-                  <Td>{e.store}</Td>
-                  <Td>{e.email}</Td>
-                  <Td>
-                    <Icon as={FaUserEdit} cursor="pointer" />
+                    <Icon as={FaUserEdit} cursor="pointer" ml="2" />
                   </Td>
                   <Td>
-                    <Icon as={FaUserMinus} cursor="pointer" />
+                    <Switch size="sm" pl="2" />
                   </Td>
                 </Tr>
               );
