@@ -1,35 +1,79 @@
 import React from "react";
-import { Flex, Heading, Card } from "@chakra-ui/react";
+import {
+  Avatar,
+  Box,
+  Table,
+  TableContainer,
+  Tbody,
+  Text,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  TableCaption,
+  Heading,
+  Icon,
+} from "@chakra-ui/react";
 import prisma from "../../lib/prisma";
 import { validateToken } from "../../lib/auth";
-import { PageContent } from "../../components/BaseLayout/PageContent";
+
+import { FaUserEdit, FaUserMinus } from "react-icons/fa";
 
 const StaffList = ({ users }) => {
+  console.log(users);
   return (
-    <PageContent>
-      <Flex flexDirection="column" justifyContent="center" alignItems="center">
-        <Heading
-          as="h1"
-          size="2xl"
-          noOfLines={2}
-          textAlign="center"
-          padding="24px"
-          bg="white"
-          borderRadius="20px"
-        >
-          Staff Refords
+    <Box
+      backgroundColor="white"
+      maxWidth="max-content"
+      maxHeight="max-content"
+      boxShadow="0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);"
+      padding="1.25rem"
+      textAlign="center"
+      display="block"
+      margin="0 auto"
+    >
+      <TableContainer>
+        <Heading size="lg" margin="10px 10px 20px 10px">
+          Staff
         </Heading>
-        <Card backgroundColor="white" width="100%" padding="24px">
-          <ul>
-            {users.map((user) => (
-              <li key={`${user.firstName}-${user.lastName}`}>
-                hello {user.firstName} {user.lastName}
-              </li>
-            ))}
-          </ul>
-        </Card>
-      </Flex>
-    </PageContent>
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th></Th>
+              <Th>First Name</Th>
+              <Th>Last Name</Th>
+              <Th>Location</Th>
+              <Th>Email</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {users.map((e, i) => {
+              return (
+                <Tr>
+                  <Td>
+                    {" "}
+                    <Avatar size="xs" src="" cursor="pointer" />
+                  </Td>
+                  <Td>
+                    <Text>{e.firstName}</Text>
+                  </Td>
+                  <Td>{e.firstName}</Td>
+                  <Td>{e.lastName}</Td>
+                  <Td>{e.store}</Td>
+                  <Td>{e.email}</Td>
+                  <Td>
+                    <Icon as={FaUserEdit} cursor="pointer" />
+                  </Td>
+                  <Td>
+                    <Icon as={FaUserMinus} cursor="pointer" />
+                  </Td>
+                </Tr>
+              );
+            })}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 };
 
