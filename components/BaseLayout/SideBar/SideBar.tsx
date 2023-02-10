@@ -1,5 +1,4 @@
-import React, { useCallback, useState } from "react";
-import { useRouter } from "next/router";
+import React, { useState, FC } from "react";
 import {
   Flex,
   Text,
@@ -9,53 +8,51 @@ import {
   Heading,
   Image,
 } from "@chakra-ui/react";
-import {
-  FiMenu,
-  FiHome,
-  FiUser,
-  FiBriefcase,
-  FiSettings,
-  FiLogOut,
-} from "react-icons/fi";
-import { signout } from "../../../lib/mutations";
+import { FiMenu, FiHome, FiUser, FiBriefcase } from "react-icons/fi";
 import { useMe } from "../../../lib/hooks";
+import { SidebarItems } from "../../Sidebar/SidebarItems";
+import { SidebarRoutes } from "../../types/types";
 
-import NavItem from "../NavItem/NavItem";
+type props = {
+  trackCollapse: () => void;
+};
 
-const Sidebar = () => {
-  const [navSize, changeNavSize] = useState("small");
+const Sidebar: FC<props> = ({ trackCollapse }) => {
+  const [isCollapsed, setIsCollapsed] = useState(false); // default the navbar to be expanded
   const { user } = useMe();
-  const router = useRouter();
 
-  const handleLogOutEvent = useCallback(async () => {
-    await signout();
-    router.push("/signin");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const returnHome = () => {
-    router.push("/");
-  };
-
-  const openStaffList = () => {
-    router.push("/staff");
-  };
+  const sideBarItems: SidebarRoutes[] = [
+    {
+      title: "Dashboard",
+      icon: FiHome,
+      route: "/",
+    },
+    {
+      title: "Staff",
+      icon: FiUser,
+      route: "/staff",
+    },
+    {
+      title: "Customers",
+      icon: FiBriefcase,
+      route: "/",
+    },
+  ];
 
   return (
     <Flex
       background="white"
       pos="relative"
       h="100vh"
-      w={navSize === "small" ? "75px" : "200px"}
+      w={isCollapsed ? "75px" : "200px"}
       flexDir="column"
       justifyContent="space-between"
-      zIndex="999"
     >
       <Flex
         p="5%"
         flexDir="column"
         w="100%"
-        alignItems={navSize === "small" ? "center" : "flex-start"}
+        alignItems={isCollapsed ? "center" : "flex-start"}
         as="nav"
       >
         <Image
@@ -82,54 +79,30 @@ const Sidebar = () => {
           _hover={{ background: "none" }}
           icon={<FiMenu />}
           onClick={() => {
-            if (navSize === "small") changeNavSize("large");
-            else changeNavSize("small");
+            trackCollapse();
+            setIsCollapsed(!isCollapsed);
           }}
         />
-        <NavItem
-          navSize={navSize}
-          icon={FiHome}
-          title="Dashboard"
-          onClick={returnHome}
-        />
-        <NavItem
-          navSize={navSize}
-          icon={FiUser}
-          title="Staff"
-          onClick={openStaffList}
-        />
-        <NavItem navSize={navSize} icon={FiUser} title="Clients" />
-        <NavItem navSize={navSize} icon={FiBriefcase} title="Reports" />
-        <NavItem navSize={navSize} icon={FiSettings} title="Settings" />
-
-        <NavItem
-          navSize={navSize}
-          icon={FiLogOut}
-          title="Log Out"
-          onClick={handleLogOutEvent}
-        />
+        <Flex height="100%">
+          <SidebarItems isCollapsed={isCollapsed} navItems={sideBarItems} />
+        </Flex>
       </Flex>
 
       <Flex
-        p="5%"
         flexDir="column"
         w="100%"
-        alignItems={navSize === "small" ? "center" : "flex-start"}
+        alignItems={isCollapsed ? "center" : "flex-start"}
         mb={4}
       >
-        <Divider display={navSize === "small" ? "none" : "flex"} mb="10px" />
+        <Divider display={isCollapsed ? "none" : "flex"} mb="10px" />
         <Avatar size="md" left="0" right="0" ml="auto" mr="auto" src="" />
-        <Flex mt={4} align="center">
-          <Flex
-            flexDir="column"
-            ml="1.8vw"
-            display={navSize === "small" ? "none" : "flex"}
-          >
+        <Flex mt={4} align="center" justifyContent="center">
+          <Flex flexDirection="column" align="center" justifyContent="center">
             <Heading as="h4" size="sm">
-              {user.firstName} {user.lastName}
+              {user?.firstName} {user?.lastName}
             </Heading>
             <Text color="gray" textAlign="center">
-              Role
+              Role: {user.role}
             </Text>
           </Flex>
         </Flex>
