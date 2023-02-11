@@ -95,7 +95,11 @@ const Sidebar: FC<props> = ({ trackCollapse }) => {
         alignItems={isCollapsed ? "center" : "flex-start"}
         mb={4}
       >
-        <Divider display={isCollapsed ? "none" : "flex"} mb="10px" />
+        <Divider
+          display={isCollapsed ? "none" : "flex"}
+          mb="10px"
+          color="gray.400"
+        />
         <Avatar size="md" left="0" right="0" ml="auto" mr="auto" src="" />
         <Box display="block" margin="0 auto" mt="3" textAlign="center">
           <Flex flexDirection="column" align="center" justifyContent="center">

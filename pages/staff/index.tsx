@@ -53,17 +53,17 @@ const StaffList = ({ users }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {users.map((user) => {
+            {users.map(({ firstName, lastName, store, email }) => {
               return (
                 <Tr>
                   <Td>
                     {" "}
                     <Avatar size="xs" src="" cursor="pointer" />
                   </Td>
-                  <Td>{user.firstName}</Td>
-                  <Td>{user.lastName}</Td>
-                  <Td>{user.store}</Td>
-                  <Td>{user.email}</Td>
+                  <Td>{firstName}</Td>
+                  <Td>{lastName}</Td>
+                  <Td>{store}</Td>
+                  <Td>{email}</Td>
                   <Td>
                     <Icon as={FaUserEdit} cursor="pointer" ml="2" />
                   </Td>
