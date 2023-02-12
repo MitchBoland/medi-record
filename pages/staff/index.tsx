@@ -1,35 +1,82 @@
 import React from "react";
-import { Flex, Heading, Card } from "@chakra-ui/react";
-import prisma from "../../lib/prisma";
+import {
+  Avatar,
+  Box,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+  Switch,
+  Heading,
+  Icon,
+} from "@chakra-ui/react";
 import { validateToken } from "../../lib/auth";
-import { PageContent } from "../../components/BaseLayout/PageContent";
+import { FaUserEdit } from "react-icons/fa";
+import prisma from "../../lib/prisma";
 
 const StaffList = ({ users }) => {
   return (
-    <PageContent>
-      <Flex flexDirection="column" justifyContent="center" alignItems="center">
-        <Heading
-          as="h1"
-          size="2xl"
-          noOfLines={2}
-          textAlign="center"
-          padding="24px"
-          bg="white"
-          borderRadius="20px"
-        >
-          Staff Refords
+    <Box
+      backgroundColor="white"
+      height="max-content"
+      maxWidth="max-content"
+      maxHeight="100vh"
+      boxShadow="0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);"
+      padding="24px"
+      textAlign="center"
+      display="block"
+      margin="0 auto"
+      overflowY="scroll"
+      css={{
+        "&::-webkit-scrollbar": {
+          display: "none",
+        },
+      }}
+    >
+      <TableContainer>
+        <Heading size="md" margin="12px 12px 24px 24px">
+          Staff
         </Heading>
-        <Card backgroundColor="white" width="100%" padding="24px">
-          <ul>
-            {users.map((user) => (
-              <li key={`${user.firstName}-${user.lastName}`}>
-                hello {user.firstName} {user.lastName}
-              </li>
-            ))}
-          </ul>
-        </Card>
-      </Flex>
-    </PageContent>
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th />
+              <Th textAlign="center">First Name</Th>
+              <Th textAlign="center">Last Name</Th>
+              <Th textAlign="center">Location</Th>
+              <Th textAlign="center">Email</Th>
+              <Th>Edit</Th>
+              <Th>Active</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {users.map(({ firstName, lastName, store, email }) => {
+              return (
+                <Tr>
+                  <Td>
+                    {" "}
+                    <Avatar size="xs" src="" cursor="pointer" />
+                  </Td>
+                  <Td>{firstName}</Td>
+                  <Td>{lastName}</Td>
+                  <Td>{store}</Td>
+                  <Td>{email}</Td>
+                  <Td>
+                    <Icon as={FaUserEdit} cursor="pointer" ml="2" />
+                  </Td>
+                  <Td>
+                    <Switch size="sm" pl="2" />
+                  </Td>
+                </Tr>
+              );
+            })}
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </Box>
   );
 };
 

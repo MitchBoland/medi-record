@@ -18,8 +18,8 @@ const AuthForm: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
       <Image
         src="./images/logo.svg"
         alt="site logo"
-        width="80px"
-        height="80px"
+        width="250px"
+        height="120px"
       />
     </Flex>
   );

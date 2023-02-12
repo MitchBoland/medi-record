@@ -7,6 +7,7 @@ import {
   Avatar,
   Heading,
   Image,
+  Box,
 } from "@chakra-ui/react";
 import { FiMenu, FiHome, FiUser, FiBriefcase } from "react-icons/fi";
 import { useMe } from "../../../lib/hooks";
@@ -58,7 +59,7 @@ const Sidebar: FC<props> = ({ trackCollapse }) => {
         <Image
           src="/images/logo.svg"
           height={10}
-          width={10}
+          width={isCollapsed ? 55 : 80}
           left="0"
           right="0"
           ml="auto"
@@ -94,18 +95,22 @@ const Sidebar: FC<props> = ({ trackCollapse }) => {
         alignItems={isCollapsed ? "center" : "flex-start"}
         mb={4}
       >
-        <Divider display={isCollapsed ? "none" : "flex"} mb="10px" />
+        <Divider
+          display={isCollapsed ? "none" : "flex"}
+          mb="10px"
+          color="gray.400"
+        />
         <Avatar size="md" left="0" right="0" ml="auto" mr="auto" src="" />
-        <Flex mt={4} align="center" justifyContent="center">
+        <Box display="block" margin="0 auto" mt="3" textAlign="center">
           <Flex flexDirection="column" align="center" justifyContent="center">
             <Heading as="h4" size="sm">
               {user?.firstName} {user?.lastName}
             </Heading>
             <Text color="gray" textAlign="center">
-              Role: {user.role}
+              {user.role}
             </Text>
           </Flex>
-        </Flex>
+        </Box>
       </Flex>
     </Flex>
   );

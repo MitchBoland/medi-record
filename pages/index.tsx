@@ -1,55 +1,47 @@
-import React, { useCallback, useState } from "react";
-import { Button, Flex, Heading, SlideFade } from "@chakra-ui/react";
-import { useRouter } from "next/router";
-import { signout } from "../lib/mutations";
-import { PageContent } from "../components/BaseLayout/PageContent";
+import React from "react";
+import { Card, Fade, Flex, Image, Text, useDisclosure } from "@chakra-ui/react";
+import { useMe } from "../lib/hooks";
 
 // This is the home screen body content
 const Home = () => {
-  const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
+  const { isOpen, onToggle } = useDisclosure();
+  const { user } = useMe();
 
-  const handleLogOutEvent = useCallback(async () => {
-    setIsLoading(true);
-    await signout();
-    setIsLoading(false);
-    router.push("/signin");
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const getGreeting = () => {
+    const myDate = new Date();
+    const hours = myDate.getHours();
+    let greeting = "Welcome";
+    if (hours < 12) {
+      greeting = "Good Morning";
+      return greeting;
+    } else if (hours >= 12 && hours <= 17) {
+      greeting = "Good Afternoon";
+      return greeting;
+    } else if (hours >= 17 && hours <= 24) {
+      greeting = "Good Evening";
+      return greeting;
+    }
+  };
 
   return (
-    <PageContent>
-      <Flex flexDirection="column" justifyContent="center" alignItems="center">
-        <Heading
-          as="h1"
-          size="2xl"
-          noOfLines={2}
-          textAlign="center"
-          padding="24px"
-          bg="white"
-          borderRadius="20px"
+    <Card justifyContent="center" alignItems="center" width="100%">
+      <Fade in={!isOpen}>
+        <Flex
+          flexDirection="column"
+          justifyContent="center"
+          alignItems="center"
+          bg="#FFFFFFE6"
+          gap="30px"
+          padding="50px 65px 50px 65px"
+          border="1px solid white"
+          borderRadius="6px"
+          boxShadow="5px 5px 5px #FFFFFF4D"
         >
-          Welcome to Medi Records
-        </Heading>
-        <SlideFade offsetY="50px" in>
-          <Flex
-            marginLeft="auto"
-            marginRight="auto"
-            justifyContent="center"
-            alignItems="center"
-            padding="24px"
-          >
-            <Button
-              variant="submit"
-              isLoading={isLoading}
-              onClick={handleLogOutEvent}
-            >
-              Log Out
-            </Button>
-          </Flex>
-        </SlideFade>
-      </Flex>
-    </PageContent>
+          <Image src="./images/logo.svg" alt="site logo" height="160px" />
+          <Text fontFamily="14px">{`${getGreeting()} ${user.firstName}`}</Text>
+        </Flex>
+      </Fade>
+    </Card>
   );
 };
 
