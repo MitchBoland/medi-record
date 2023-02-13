@@ -18,8 +18,8 @@ import { FiDownload } from "react-icons/fi";
 import prisma from "../../../lib/prisma";
 import { validateToken } from "../../../lib/auth";
 
-const index = ({ users }) => {
-  const { id, firstName, lastName, email, role, store } = users;
+const Profile = ({ users }) => {
+  const { firstName, lastName, email, store } = users;
 
   return (
     <Flex h="100vh" w="100vw" alignContent="center" justifyContent="center">
@@ -153,8 +153,6 @@ const index = ({ users }) => {
 };
 
 export const getServerSideProps = async ({ req, query }) => {
-  let userEmail = query.email;
-
   let user;
 
   try {
@@ -178,10 +176,12 @@ export const getServerSideProps = async ({ req, query }) => {
     };
   }
 
+  const idToNumber = parseInt(query.id);
+
   const users = await prisma.user.findFirst({
     where: {
-      email: {
-        equals: userEmail,
+      id: {
+        equals: idToNumber,
       },
     },
     select: {
@@ -194,9 +194,18 @@ export const getServerSideProps = async ({ req, query }) => {
     },
   });
 
+  if (!users) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+    };
+  }
+
   return {
     props: { users },
   };
 };
 
-export default index;
+export default Profile;

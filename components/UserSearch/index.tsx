@@ -28,7 +28,7 @@ export const UserSearch = () => {
               <FormLabel mt="1" ml="2" fontSize="12px">
                 First Name
               </FormLabel>
-              <Input ml="2" mb="6" size="sm" w="240px"></Input>
+              <Input ml="2" mb="6" size="sm" w="240px" />
             </Flex>
           </WrapItem>
 
@@ -37,7 +37,7 @@ export const UserSearch = () => {
               <FormLabel mt="1" ml="2" fontSize="12px">
                 Last Name
               </FormLabel>
-              <Input ml="2" mb="6" size="sm" w="240px"></Input>
+              <Input ml="2" mb="6" size="sm" w="240px" />
             </Flex>
           </WrapItem>
 

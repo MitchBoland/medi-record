@@ -21,6 +21,7 @@ module.exports = {
     "import/prefer-default-export": "off",
     "no-param-reassign": "off",
     "react/require-default-props": "off",
+    radix: "off",
     "import/extensions": [
       "error",
       "ignorePackages",

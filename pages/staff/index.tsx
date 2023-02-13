@@ -66,7 +66,7 @@ const StaffList = ({ users }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {users.map(({ firstName, lastName, store, email }) => {
+            {users.map(({ id, firstName, lastName, store, email }) => {
               return (
                 <Tr>
                   <Td>
@@ -76,8 +76,8 @@ const StaffList = ({ users }) => {
                       cursor="pointer"
                       onClick={() => {
                         router.push({
-                          pathname: "/staff/profile",
-                          query: { email },
+                          pathname: "/staff/profile/[id]",
+                          query: { id },
                         });
                       }}
                     />
@@ -93,8 +93,8 @@ const StaffList = ({ users }) => {
                       ml="2"
                       onClick={() => {
                         router.push({
-                          pathname: "/staff/profile",
-                          query: { email },
+                          pathname: "/staff/profile/[id]",
+                          query: { id },
                         });
                       }}
                     />
@@ -137,7 +137,13 @@ export const getServerSideProps = async ({ req }) => {
   }
 
   const users = await prisma.user.findMany({
-    select: { firstName: true, lastName: true, store: true, email: true },
+    select: {
+      id: true,
+      firstName: true,
+      lastName: true,
+      store: true,
+      email: true,
+    },
   });
 
   return {
