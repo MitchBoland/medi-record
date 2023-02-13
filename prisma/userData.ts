@@ -46,4 +46,4 @@ export const userData: {
     lastName: "James",
     store: "Alexandra Hills",
   },
-]
+];
