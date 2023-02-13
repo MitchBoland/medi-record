@@ -22,8 +22,6 @@ const CustomerList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [name]);
 
-  useEffect(() => {}, [matchingCustomers]);
-
   return (
     <PageContent>
       <Card
