@@ -29,7 +29,8 @@ export const SidebarItems: FC<props> = ({ navItems, isCollapsed }) => {
     await signout();
     setIsLogoutLoading(false);
     router.push("/signin");
-  }, [router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Flex flexDirection="column" width="100%" marginTop="12px">
