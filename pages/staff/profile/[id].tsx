@@ -176,16 +176,15 @@ export const getServerSideProps = async ({ req, query }) => {
     };
   }
 
-  const idToNumber = parseInt(query.id);
-
   const users = await prisma.user.findFirst({
     where: {
-      id: {
-        equals: idToNumber,
+      uuid: {
+        equals: query.id,
       },
     },
     select: {
       id: true,
+      uuid: true,
       email: true,
       firstName: true,
       lastName: true,
