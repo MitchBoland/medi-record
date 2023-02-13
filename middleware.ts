@@ -2,7 +2,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const protectedPages = ["/", "/staff", "/customer"];
+const protectedPages = ["/", "/staff", "/customers"];
 
 const openPages = ["/signin"];
 

@@ -35,6 +35,7 @@ const CustomerList = () => {
           <Heading size="lg">Customer Lookup</Heading>
           <Flex
             width="500px"
+            maxWidth="calc(100% - 24px)"
             paddingTop="24px"
             justifyContent="center"
             alignItems="center"
