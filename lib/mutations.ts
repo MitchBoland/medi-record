@@ -4,7 +4,7 @@ export const auth = (
   mode: "signin" | "signup",
   body: { email: string; password: string }
 ) => {
-  return fetcher(`/${mode}`, body);
+  return fetcher(`/${mode}`, undefined, body);
 };
 
 export const signout = () => {
@@ -12,7 +12,7 @@ export const signout = () => {
 };
 
 export const signinAuth = (body: { email: string; password: string }) => {
-  return fetcher(`/signin`, body);
+  return fetcher(`/signin`, undefined, body);
 };
 
 export const signupAuth = (body: {
@@ -21,5 +21,9 @@ export const signupAuth = (body: {
   email: string;
   password: string;
 }) => {
-  return fetcher(`/signup`, body);
+  return fetcher(`/signup`, undefined, body);
+};
+
+export const searchCustomers = (body: { name: string }) => {
+  return fetcher(`/customer`, "GET", body);
 };
