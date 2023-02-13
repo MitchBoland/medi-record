@@ -14,12 +14,12 @@ import {
   Heading,
   Icon,
 } from "@chakra-ui/react";
-import { validateToken } from "../../lib/auth";
 import { FaUserEdit } from "react-icons/fa";
 import { FiUserPlus } from "react-icons/fi";
-import prisma from "../../lib/prisma";
 import router from "next/router";
-import UserSearch from "../../components/UserSearch";
+import prisma from "../../lib/prisma";
+import { validateToken } from "../../lib/auth";
+import { UserSearch } from "../../components/UserSearch";
 
 const StaffList = ({ users }) => {
   return (
@@ -44,7 +44,7 @@ const StaffList = ({ users }) => {
       }}
     >
       <Button variant="submit" pos="absolute" top="2" right="6" w="48px">
-        <Icon as={FiUserPlus} h="5" w="5"></Icon>
+        <Icon as={FiUserPlus} h="5" w="5" />
       </Button>
       <Heading size="sm" margin="0px 12px 24px 24px" textAlign="left" w="100%">
         Staff at Company Name
