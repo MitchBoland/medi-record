@@ -9,7 +9,14 @@ import {
   Image,
   Box,
 } from "@chakra-ui/react";
-import { FiMenu, FiHome, FiUser, FiBriefcase } from "react-icons/fi";
+import {
+  FiMenu,
+  FiHome,
+  FiUser,
+  FiBriefcase,
+  FiBookOpen,
+  FiArchive,
+} from "react-icons/fi";
 import { useMe } from "../../../lib/hooks";
 import { SidebarItems } from "../../Sidebar/SidebarItems";
 import { SidebarRoutes } from "../../types/types";
@@ -36,6 +43,16 @@ const Sidebar: FC<props> = ({ trackCollapse }) => {
     {
       title: "Customers",
       icon: FiBriefcase,
+      route: "/customers",
+    },
+    {
+      title: "Prescriptions",
+      icon: FiBookOpen,
+      route: "/customers",
+    },
+    {
+      title: "Products",
+      icon: FiArchive,
       route: "/customers",
     },
   ];
@@ -72,7 +89,7 @@ const Sidebar: FC<props> = ({ trackCollapse }) => {
         <IconButton
           aria-label={null}
           background="none"
-          mt="5px"
+          mt="12px"
           left="0"
           right="0"
           ml="auto"

@@ -3,6 +3,7 @@ import {
   Avatar,
   Box,
   Table,
+  Button,
   TableContainer,
   Tbody,
   Td,
@@ -15,16 +16,22 @@ import {
 } from "@chakra-ui/react";
 import { validateToken } from "../../lib/auth";
 import { FaUserEdit } from "react-icons/fa";
+import { FiUserPlus } from "react-icons/fi";
 import prisma from "../../lib/prisma";
+import router from "next/router";
+import UserSearch from "../../components/UserSearch";
 
 const StaffList = ({ users }) => {
   return (
     <Box
       backgroundColor="white"
+      pos="relative"
       height="max-content"
       maxWidth="max-content"
       maxHeight="100vh"
       boxShadow="0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);"
+      borderTop=" 8px solid"
+      borderColor="brand.800"
       padding="24px"
       textAlign="center"
       display="block"
@@ -36,18 +43,24 @@ const StaffList = ({ users }) => {
         },
       }}
     >
+      <Button variant="submit" pos="absolute" top="2" right="6" w="48px">
+        <Icon as={FiUserPlus} h="5" w="5"></Icon>
+      </Button>
+      <Heading size="sm" margin="0px 12px 24px 24px" textAlign="left" w="100%">
+        Staff at Company Name
+      </Heading>
+
+      <UserSearch />
+
       <TableContainer>
-        <Heading size="md" margin="12px 12px 24px 24px">
-          Staff
-        </Heading>
         <Table variant="simple">
           <Thead>
             <Tr>
               <Th />
-              <Th textAlign="center">First Name</Th>
-              <Th textAlign="center">Last Name</Th>
-              <Th textAlign="center">Location</Th>
-              <Th textAlign="center">Email</Th>
+              <Th>First Name</Th>
+              <Th>Last Name</Th>
+              <Th>Location</Th>
+              <Th>Email</Th>
               <Th>Edit</Th>
               <Th>Active</Th>
             </Tr>
@@ -57,15 +70,34 @@ const StaffList = ({ users }) => {
               return (
                 <Tr>
                   <Td>
-                    {" "}
-                    <Avatar size="xs" src="" cursor="pointer" />
+                    <Avatar
+                      size="xs"
+                      src=""
+                      cursor="pointer"
+                      onClick={() => {
+                        router.push({
+                          pathname: "/staff/profile",
+                          query: { email },
+                        });
+                      }}
+                    />
                   </Td>
                   <Td>{firstName}</Td>
                   <Td>{lastName}</Td>
                   <Td>{store}</Td>
                   <Td>{email}</Td>
                   <Td>
-                    <Icon as={FaUserEdit} cursor="pointer" ml="2" />
+                    <Icon
+                      as={FaUserEdit}
+                      cursor="pointer"
+                      ml="2"
+                      onClick={() => {
+                        router.push({
+                          pathname: "/staff/profile",
+                          query: { email },
+                        });
+                      }}
+                    />
                   </Td>
                   <Td>
                     <Switch size="sm" pl="2" />
@@ -95,7 +127,7 @@ export const getServerSideProps = async ({ req }) => {
   }
 
   if (!user) {
-    // no stock name, redirect back to home route
+    // no user name, redirect back to home route
     return {
       redirect: {
         permanent: false,
