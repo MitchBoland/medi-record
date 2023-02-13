@@ -4,7 +4,7 @@ import { useMe } from "../lib/hooks";
 
 // This is the home screen body content
 const Home = () => {
-  const { isOpen, onToggle } = useDisclosure();
+  const { isOpen } = useDisclosure();
   const { user } = useMe();
 
   const getGreeting = () => {
@@ -14,10 +14,12 @@ const Home = () => {
     if (hours < 12) {
       greeting = "Good Morning";
       return greeting;
-    } else if (hours >= 12 && hours <= 17) {
+    }
+    if (hours >= 12 && hours <= 17) {
       greeting = "Good Afternoon";
       return greeting;
-    } else if (hours >= 17 && hours <= 24) {
+    }
+    if (hours >= 17 && hours <= 24) {
       greeting = "Good Evening";
       return greeting;
     }

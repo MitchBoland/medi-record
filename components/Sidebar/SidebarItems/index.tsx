@@ -32,11 +32,11 @@ export const SidebarItems: FC<props> = ({ navItems, isCollapsed }) => {
   }, [router]);
 
   return (
-    <Flex flexDirection="column" width="100%" marginTop="24px">
+    <Flex flexDirection="column" width="100%" marginTop="12px">
       <List spacing={5}>
         {navItems.map(({ title, icon, route }) => (
-          <ListItem fontSize={isCollapsed ? "24px" : "20px"} key={title}>
-            <LinkBox>
+          <ListItem fontSize={isCollapsed ? "22px" : "18px"} key={title}>
+            <LinkBox pt="12px">
               <NextLink href={route} passHref>
                 <Flex
                   alignItems="center"
