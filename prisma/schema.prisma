@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,17 +7,37 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum AccountType {
+  ADMIN
+  DEVELOPER
+  EDITOR
+  VIEWER
+}
+
 model User {
-  id        Int      @id @default(autoincrement())
-  uuid      String   @default(uuid())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  email     String   @unique
-  password  String
-  role      String
-  firstName String
-  lastName  String
-  store     String?
+  id            Int         @id @default(autoincrement())
+  uuid          String      @default(uuid())
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  email         String      @unique
+  password      String
+  userDetails   UserDetails @relation(fields: [userDetailsId], references: [id])
+  userDetailsId Int
+}
+
+model UserDetails {
+  id                        Int             @id @default(autoincrement())
+  role                      AccountType?    @default(VIEWER)
+  firstName                 String
+  lastName                  String
+  store                     String?
+  phone                     String?
+  department                String?
+  homeAddress               String?
+  emergencyContactPrimary   String?
+  emergencyContactSecondary String?
+  user                      User[]
+  qualifications            Qualification[]
 }
 
 model Customer {
@@ -46,7 +63,7 @@ model Prescription {
   lastRefillDate   DateTime
   refillFrequency  Int
   nextRefillDate   DateTime
-  Customer         Customer  @relation(fields: [customerId], references: [id])
+  customer         Customer  @relation(fields: [customerId], references: [id])
   customerId       Int
   products         Product[]
 }
@@ -59,4 +76,14 @@ model Product {
   prescriptionId Int
   name           String
   description    String
+}
+
+model Qualification {
+  id            Int          @id @default(autoincrement())
+  updatedAt     DateTime     @updatedAt
+  createdAt     DateTime     @default(now())
+  expriresAt    DateTime
+  name          String
+  userDetails   UserDetails? @relation(fields: [userDetailsId], references: [id])
+  userDetailsId Int?
 }

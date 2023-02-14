@@ -30,8 +30,8 @@ const run = async () => {
                 create: {
                   name: `celebrate ${index}`,
                   description: `description for ${index}`,
-                }
-              }
+                },
+              },
             },
           },
         },
@@ -42,17 +42,38 @@ const run = async () => {
   const salt = bcrypt.genSaltSync();
   await Promise.all(
     userData.map(
-      async ({ email, password, role, firstName, lastName, store }) => {
+      async ({
+        email,
+        password,
+        userDetails: {
+          firstName,
+          lastName,
+          store,
+          phone,
+          department,
+          homeAddress,
+          emergencyContactPrimary,
+          emergencyContactSecondary,
+        },
+      }) => {
         return prisma.user.upsert({
           where: { email },
           update: {},
           create: {
             email,
             password: bcrypt.hashSync(password, salt),
-            role,
-            firstName,
-            lastName,
-            store,
+            userDetails: {
+              create: {
+                firstName,
+                lastName,
+                store,
+                phone,
+                department,
+                homeAddress,
+                emergencyContactPrimary,
+                emergencyContactSecondary,
+              },
+            },
           },
         });
       }
@@ -65,10 +86,18 @@ const run = async () => {
     create: {
       email: "mitch@test.com",
       password: bcrypt.hashSync("Password123!", salt),
-      role: "god",
-      firstName: "Mitch",
-      lastName: "CoolKid",
-      store: "Brisbane",
+      userDetails: {
+        create: {
+          firstName: "mitch",
+          lastName: "boland",
+          store: "alexandra hills",
+          phone: "61455215211",
+          department: "pharmacy",
+          homeAddress: "123 fake street",
+          emergencyContactPrimary: "Greg Johnston 0455215222",
+          emergencyContactSecondary: "Fred Macklemore 0488596552",
+        },
+      },
     },
   });
 };

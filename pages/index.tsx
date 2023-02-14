@@ -10,17 +10,18 @@ const Home = () => {
   const getGreeting = () => {
     const myDate = new Date();
     const hours = myDate.getHours();
+    const { firstName } = user.userDetails;
     let greeting = "Welcome";
     if (hours < 12) {
-      greeting = "Good Morning";
+      greeting = `Good Morning ${firstName}`;
       return greeting;
     }
     if (hours >= 12 && hours <= 17) {
-      greeting = "Good Afternoon";
+      greeting = `Good Afternoon ${firstName}`;
       return greeting;
     }
     if (hours >= 17 && hours <= 24) {
-      greeting = "Good Evening";
+      greeting = `Good Evening ${firstName}`;
       return greeting;
     }
   };
@@ -40,7 +41,7 @@ const Home = () => {
           boxShadow="5px 5px 5px #FFFFFF4D"
         >
           <Image src="./images/logo.svg" alt="site logo" height="160px" />
-          <Text fontFamily="14px">{`${getGreeting()} ${user.firstName}`}</Text>
+          <Text fontFamily="14px">{`${getGreeting()}`}</Text>
         </Flex>
       </Fade>
     </Card>

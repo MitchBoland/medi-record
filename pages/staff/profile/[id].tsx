@@ -19,7 +19,20 @@ import prisma from "../../../lib/prisma";
 import { validateToken } from "../../../lib/auth";
 
 const Profile = ({ users }) => {
-  const { firstName, lastName, email, store } = users;
+  const {
+    email,
+    createdAt,
+    userDetails: {
+      firstName,
+      lastName,
+      store,
+      phone,
+      department,
+      homeAddress,
+      emergencyContactPrimary,
+      emergencyContactSecondary,
+    },
+  } = users;
 
   return (
     <Flex h="100vh" w="100vw" alignContent="center" justifyContent="center">
@@ -64,7 +77,7 @@ const Profile = ({ users }) => {
                   </Tr>
                   <Tr>
                     <Td>Phone</Td>
-                    <Td>0457852145</Td>
+                    <Td>{phone}</Td>
                   </Tr>
                   <Tr>
                     <Td>Store</Td>
@@ -72,11 +85,13 @@ const Profile = ({ users }) => {
                   </Tr>
                   <Tr>
                     <Td>Active From</Td>
-                    <Td>17/02/23</Td>
+                    <Td>
+                      {createdAt.toISOString().slice(0, 10).replace(/-/g, "/")}
+                    </Td>
                   </Tr>
                   <Tr>
                     <Td>Department</Td>
-                    <Td>Health</Td>
+                    <Td>{department}</Td>
                   </Tr>
                   <Tr>
                     <Td>Reports To</Td>
@@ -97,15 +112,7 @@ const Profile = ({ users }) => {
                   </Tr>
                   <Tr>
                     <Td w="200px">Home Address</Td>
-                    <Td>742 Wallaby Street</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>Home Phone</Td>
-                    <Td>0457852145</Td>
-                  </Tr>
-                  <Tr>
-                    <Td>Gender</Td>
-                    <Td>Male</Td>
+                    <Td>{homeAddress}</Td>
                   </Tr>
                 </Tbody>
               </Table>
@@ -133,14 +140,10 @@ const Profile = ({ users }) => {
                     <Th>Emergency Contacts</Th>
                   </Tr>
                   <Tr>
-                    <Td w="10%">John Smith</Td>
-                    <Td>JohnSmith@gmail.com</Td>
-                    <Td>0455626222</Td>
+                    <Td w="10%">{emergencyContactPrimary}</Td>
                   </Tr>
                   <Tr>
-                    <Td>Mary White</Td>
-                    <Td>MaryWhite@gmail.com</Td>
-                    <Td>0488515111</Td>
+                    <Td>{emergencyContactSecondary}</Td>
                   </Tr>
                 </Tbody>
               </Table>
@@ -186,10 +189,19 @@ export const getServerSideProps = async ({ req, query }) => {
       id: true,
       uuid: true,
       email: true,
-      firstName: true,
-      lastName: true,
-      role: true,
-      store: true,
+      createdAt: true,
+      userDetails: {
+        select: {
+          firstName: true,
+          lastName: true,
+          store: true,
+          phone: true,
+          department: true,
+          homeAddress: true,
+          emergencyContactPrimary: true,
+          emergencyContactSecondary: true,
+        },
+      },
     },
   });
 
