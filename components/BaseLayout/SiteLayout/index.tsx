@@ -19,7 +19,7 @@ export const SiteLayout = ({ children }) => {
 
   return (
     <Box width="100%">
-      <BackgroundImage image="/images/loginBackground.jpg">
+      <BackgroundImage image="/images/background_gradient.png">
         <Flex>
           <SlideFade offsetX="-50px" in>
             <SideBar trackCollapse={collapseEvent} />

@@ -32,7 +32,7 @@ const AuthForm: FC<{ mode: "signin" | "signup" }> = ({ mode }) => {
       alignItems="center"
       minHeight="100vh"
     >
-      <BackgroundImage image="/images/loginBackground.jpg">
+      <BackgroundImage image="/images/background_gradient.png">
         <Flex
           justify="center"
           align="center"
