@@ -16,9 +16,13 @@ export const validateRoute = (handler) => {
           select: {
             id: true,
             email: true,
-            role: true,
-            firstName: true,
-            lastName: true,
+            userDetails: {
+              select: {
+                firstName: true,
+                lastName: true,
+                role: true,
+              },
+            },
           },
         });
 

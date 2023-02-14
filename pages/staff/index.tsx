@@ -66,45 +66,51 @@ const StaffList = ({ users }) => {
             </Tr>
           </Thead>
           <Tbody>
-            {users.map(({ uuid, firstName, lastName, store, email }) => {
-              return (
-                <Tr>
-                  <Td>
-                    <Avatar
-                      size="xs"
-                      src=""
-                      cursor="pointer"
-                      onClick={() => {
-                        router.push({
-                          pathname: "/staff/profile/[id]",
-                          query: { id: uuid },
-                        });
-                      }}
-                    />
-                  </Td>
-                  <Td>{firstName}</Td>
-                  <Td>{lastName}</Td>
-                  <Td>{store}</Td>
-                  <Td>{email}</Td>
-                  <Td>
-                    <Icon
-                      as={FaUserEdit}
-                      cursor="pointer"
-                      ml="2"
-                      onClick={() => {
-                        router.push({
-                          pathname: "/staff/profile/[id]",
-                          query: { id: uuid },
-                        });
-                      }}
-                    />
-                  </Td>
-                  <Td>
-                    <Switch size="sm" pl="2" />
-                  </Td>
-                </Tr>
-              );
-            })}
+            {users.map(
+              ({
+                uuid,
+                email,
+                userDetails: { firstName, lastName, store },
+              }) => {
+                return (
+                  <Tr key={uuid}>
+                    <Td>
+                      <Avatar
+                        size="xs"
+                        src=""
+                        cursor="pointer"
+                        onClick={() => {
+                          router.push({
+                            pathname: "/staff/profile/[id]",
+                            query: { id: uuid },
+                          });
+                        }}
+                      />
+                    </Td>
+                    <Td>{firstName}</Td>
+                    <Td>{lastName}</Td>
+                    <Td>{store}</Td>
+                    <Td>{email}</Td>
+                    <Td>
+                      <Icon
+                        as={FaUserEdit}
+                        cursor="pointer"
+                        ml="2"
+                        onClick={() => {
+                          router.push({
+                            pathname: "/staff/profile/[id]",
+                            query: { id: uuid },
+                          });
+                        }}
+                      />
+                    </Td>
+                    <Td>
+                      <Switch size="sm" pl="2" />
+                    </Td>
+                  </Tr>
+                );
+              }
+            )}
           </Tbody>
         </Table>
       </TableContainer>
@@ -140,10 +146,15 @@ export const getServerSideProps = async ({ req }) => {
     select: {
       id: true,
       uuid: true,
-      firstName: true,
-      lastName: true,
-      store: true,
       email: true,
+      userDetails: {
+        select: {
+          firstName: true,
+          lastName: true,
+          store: true,
+          role: true,
+        },
+      },
     },
   });
 

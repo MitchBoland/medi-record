@@ -28,6 +28,7 @@ type props = {
 const Sidebar: FC<props> = ({ trackCollapse }) => {
   const [isCollapsed, setIsCollapsed] = useState(false); // default the navbar to be expanded
   const { user } = useMe();
+  const { role, firstName, lastName } = user.userDetails;
 
   const sideBarItems: SidebarRoutes[] = [
     {
@@ -121,10 +122,10 @@ const Sidebar: FC<props> = ({ trackCollapse }) => {
         <Box display="block" margin="0 auto" mt="3" textAlign="center">
           <Flex flexDirection="column" align="center" justifyContent="center">
             <Heading as="h4" size="sm">
-              {user?.firstName} {user?.lastName}
+              {firstName} {lastName}
             </Heading>
             <Text color="gray" textAlign="center">
-              {user.role}
+              {role.toLowerCase()}
             </Text>
           </Flex>
         </Box>
