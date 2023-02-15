@@ -7,13 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum AccountType {
-  ADMIN
-  DEVELOPER
-  EDITOR
-  VIEWER
-}
-
 model User {
   id            Int         @id @default(autoincrement())
   uuid          String      @default(uuid())
@@ -27,7 +20,7 @@ model User {
 
 model UserDetails {
   id                        Int             @id @default(autoincrement())
-  role                      AccountType?    @default(VIEWER)
+  role                      String          @default("VIEWER")
   firstName                 String
   lastName                  String
   store                     String?
