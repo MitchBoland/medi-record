@@ -27,3 +27,11 @@ export const signupAuth = (body: {
 export const searchCustomers = (body: { name: string }) => {
   return fetcher(`/customer`, "GET", body);
 };
+
+export const searchStaff = (body: {
+  firstName: string;
+  lastName: string;
+  store: string;
+}) => {
+  return fetcher(`/staff`, "GET", body);
+};

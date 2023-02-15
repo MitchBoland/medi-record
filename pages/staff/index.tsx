@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Avatar,
   Box,
+  CircularProgress,
   Table,
   Button,
   TableContainer,
   Tbody,
+  Text,
   Td,
   Th,
   Thead,
@@ -17,11 +19,13 @@ import {
 import { FaUserEdit } from "react-icons/fa";
 import { FiUserPlus } from "react-icons/fi";
 import router from "next/router";
-import prisma from "../../lib/prisma";
-import { validateToken } from "../../lib/auth";
 import { UserSearch } from "../../components/UserSearch";
 
-const StaffList = ({ users }) => {
+const StaffList = () => {
+  const [results, setResults] = useState(null);
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(false);
+
   return (
     <Box
       backgroundColor="white"
@@ -50,117 +54,95 @@ const StaffList = ({ users }) => {
         Staff at Company Name
       </Heading>
 
-      <UserSearch />
+      <UserSearch
+        setResults={setResults}
+        setError={setError}
+        setLoading={setLoading}
+      />
 
       <TableContainer>
         <Table variant="simple">
-          <Thead>
-            <Tr>
-              <Th />
-              <Th>First Name</Th>
-              <Th>Last Name</Th>
-              <Th>Location</Th>
-              <Th>Email</Th>
-              <Th>Edit</Th>
-              <Th>Active</Th>
-            </Tr>
-          </Thead>
+          {!loading && !error && (
+            <Thead>
+              <Tr>
+                <Th />
+                <Th>First Name</Th>
+                <Th>Last Name</Th>
+                <Th>Location</Th>
+                <Th>Email</Th>
+                <Th>Edit</Th>
+                <Th>Active</Th>
+              </Tr>
+            </Thead>
+          )}
+
           <Tbody>
-            {users.map(
-              ({
-                uuid,
-                email,
-                userDetails: { firstName, lastName, store },
-              }) => {
-                return (
-                  <Tr key={uuid}>
-                    <Td>
-                      <Avatar
-                        size="xs"
-                        src=""
-                        cursor="pointer"
-                        onClick={() => {
-                          router.push({
-                            pathname: "/staff/profile/[id]",
-                            query: { id: uuid },
-                          });
-                        }}
-                      />
-                    </Td>
-                    <Td>{firstName}</Td>
-                    <Td>{lastName}</Td>
-                    <Td>{store}</Td>
-                    <Td>{email}</Td>
-                    <Td>
-                      <Icon
-                        as={FaUserEdit}
-                        cursor="pointer"
-                        ml="2"
-                        onClick={() => {
-                          router.push({
-                            pathname: "/staff/profile/[id]",
-                            query: { id: uuid },
-                          });
-                        }}
-                      />
-                    </Td>
-                    <Td>
-                      <Switch size="sm" pl="2" />
-                    </Td>
-                  </Tr>
-                );
-              }
+            {results &&
+              !error &&
+              !loading &&
+              results.map(
+                ({
+                  uuid,
+                  email,
+                  userDetails: { firstName, lastName, store },
+                }) => {
+                  return (
+                    <Tr key={uuid}>
+                      <Td>
+                        <Avatar
+                          size="xs"
+                          src=""
+                          cursor="pointer"
+                          onClick={() => {
+                            router.push({
+                              pathname: "/staff/profile/[id]",
+                              query: { id: uuid },
+                            });
+                          }}
+                        />
+                      </Td>
+                      <Td>{firstName}</Td>
+                      <Td>{lastName}</Td>
+                      <Td>{store}</Td>
+                      <Td>{email}</Td>
+                      <Td>
+                        <Icon
+                          as={FaUserEdit}
+                          cursor="pointer"
+                          ml="2"
+                          onClick={() => {
+                            router.push({
+                              pathname: "/staff/profile/[id]",
+                              query: { id: uuid },
+                            });
+                          }}
+                        />
+                      </Td>
+                      <Td>
+                        <Switch size="sm" pl="2" />
+                      </Td>
+                    </Tr>
+                  );
+                }
+              )}
+            {loading && <CircularProgress isIndeterminate color="brand.800" />}
+            {error && (
+              <Text
+                pos="absolute"
+                fontSize="18px"
+                left="0"
+                right="0"
+                mx="auto"
+                mt="48px"
+              >
+                An Error Has Occured
+              </Text>
             )}
           </Tbody>
         </Table>
       </TableContainer>
     </Box>
   );
-};
-
-export const getServerSideProps = async ({ req }) => {
-  let user;
-
-  try {
-    user = validateToken(req.cookies.MEDI_RECORD_ACCESS_TOKEN);
-  } catch (e) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/signin",
-      },
-    };
-  }
-
-  if (!user) {
-    // no user name, redirect back to home route
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/",
-      },
-    };
-  }
-
-  const users = await prisma.user.findMany({
-    select: {
-      id: true,
-      uuid: true,
-      email: true,
-      userDetails: {
-        select: {
-          firstName: true,
-          lastName: true,
-          store: true,
-          role: true,
-        },
-      },
-    },
-  });
-
-  return {
-    props: { users },
-  };
 };
 
 export default StaffList;
