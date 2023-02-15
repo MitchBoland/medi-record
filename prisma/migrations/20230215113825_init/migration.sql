@@ -1,6 +1,3 @@
--- CreateEnum
-CREATE TYPE "AccountType" AS ENUM ('ADMIN', 'DEVELOPER', 'EDITOR', 'VIEWER');
-
 -- CreateTable
 CREATE TABLE "User" (
     "id" SERIAL NOT NULL,
@@ -17,7 +14,7 @@ CREATE TABLE "User" (
 -- CreateTable
 CREATE TABLE "UserDetails" (
     "id" SERIAL NOT NULL,
-    "role" "AccountType" DEFAULT 'VIEWER',
+    "role" TEXT NOT NULL DEFAULT 'VIEWER',
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "store" TEXT,
